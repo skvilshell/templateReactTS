@@ -39,32 +39,37 @@
 служит для хранения эндпоинтов и инстансов запросов.
 структура следующая:
 * **index.ts** - для быстрого импорта
-    `export * from ky.ts`
+  <code>export * from ky.ts</code>
 * **ky.ts** - хранение инстансов
-	`export const http = ky.extend({...}})`
+```typescript
+export const http = ky.extend({...}})
+```
 * **endpoints.ts** - хранение эндпоинтов
-	`ENDPONTIS{
-		USER:"/user"
-	}`
+```typescript
+ENDPONTIS: {
+	USER:"/user"
+}
+```
 * **[name-route]** - логика отправки
-	`export const getUser = (options)=> await http.get(ENDPOINTS.USER, options)`
+```typescript
+export const getUser = (options)=> await http.get(ENDPOINTS.USER, options)
+```
 
 ### assets
 хранение статическиз файлов
 ### components
 
 **создание компонента**
-<code> <b><i>console</i></b>
+```cmd
 npm run c <название>
 npm run c <название1> <название2>
-</code>
+```
 
 **создание UI компонента**
-<code> <b><i>console</i></b>
+```cmd
 npm run ui <название>
-npm run ui <название1> <название2>
-</code>
-
+npm run ii <название1> <название2>
+```
 дериктория служит для хранение компонентов
 следует создовать компонент если он встречается больше **1 раза**
 Также присутвует папкв **ui**. Она служит для создания базовых низкоуровневых компонентов таких как: 
@@ -97,10 +102,10 @@ npm run ui <название1> <название2>
 создание пользовательских компонентов вышего порядка
 ### pages
 **создание страницы**
-<code> <b><i>console</i></b>
+```cmd
 npm run p <название>
 npm run p <название1> <название2>
-</code>
+```
 
 дериктория служит для страниц
 по максимуму не использовать состояния на страницах, а выносить в отдельный компонент
@@ -112,71 +117,80 @@ npm run p <название1> <название2>
 хранение шаблонов создания
 ## Импорты
 вот так импорты выглядят:
-`@/components/name`
-`@/page/name`
-`@/styles/name`
-`@/api/name`
-....
+```typescript
+import name from "@/components/name"
+import name from "@/page/name"
+import name from "@/styles/name"
+import name from "@/api/name"
+...
+```
+
 
 работает автоимпорт
 
 для упрощения работы с испортами абсолютных адресов, были записаны следющие правила:
-
-<pre><code><i>//vite.config.ts</i>
+```typescript
+//vite.config.ts
 ...
 resolve: {
 	alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }]
 }
-</code></pre>
-<pre><code><i>//tsconfig.json</i>
-...
+```
+```json
 "baseUrl": ".",
 "paths": {
 	"@/*": ["./src/*"]
 }
-</code></pre>
+```
 ## Стили
 ### Sass
 все стили стили должны быть модулями
-`import s from "./name.module.scss"`
+```typescript
+import s from "./name.module.scss"
+```
 
 класс корневого рордителя JSX елемента должен называться root
-`<div className={s.root}> ...  </div>`
-<pre><code><i>//name.module.scss</i>
+```tsx
+<div className={s.root}> ...  </div>
+```
+```scss
+//name.module.scss
 
-<b>.root{
-	.element{...}
+.root{
+	.element{}
 	...
-}</b></code></pre>
+}
+```
 
 для работы с переменными подключается через дерективу `@use`. В `.scss` файл абсолютный импорт не работает.
-<pre><code><i>//name.module.scss</i>
-<b>@use "../../styles/varable.scss" as v;</b>
+```scss
+//name.module.scss</i>
+@use "../../styles/varable.scss" as v;
 
 .root{
 	background: <b>v.$bgColor</b>;
 	...
 }
-</code></pre>
+```
 
 ### шрифты
 Начертания шрифтов заранее заготовлены в виде классов. Название должны быть с сответствием дизайн проекта в Figma, только переписаны camelCase.
 <pre><code><i>//Figma</i>
 main_text * 16/20
 </code></pre>
-<pre><code><i>//name.tsx</i>
-...
+```tsx
+//name.tsx
+
  < Element  className=<b>"mainText"</b> ...>
-</code></pre>
+```
 Используйте с библиотекой `clsx` для добавления класса или условия:
-</code></pre>
-<pre><code><i>//name.tsx</i>
-<b>import cslx from 'clsx'</b>
-...
-<b>const [active,setActive] = useState< boolean >(false)</b>
-...
+```tsx
+//name.tsx
+import cslx from 'clsx'
+
+const [active,setActive] = useState<boolean>(false)
  < Element  className= {<b>clsx([s.root, "mainText", active && s.active</b>])} ...>
-</code></pre>
+```
 
 ## Расширения для помощи
 - [Figma for VS Code](https://marketplace.visualstudio.com/items?itemName=figma.figma-vscode-extension)
